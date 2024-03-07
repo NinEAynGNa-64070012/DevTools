@@ -30,29 +30,29 @@ pipeline {
             }
         }
 
-///        stage('Push to Docker Hub') {
-///            steps {
-///                script {
-///                    
-///                    // Login to Docker Hub
-///                    sh 'echo $DOCKER_CREDENTIALS_PSW | docker login --username $DOCKER_CREDENTIALS_USR --password-stdin'
-///                    // Push the image
-///                    sh 'docker push $DOCKER_IMAGE'
-///                }
-///            }
-///        }
-
-        stage('Clear Docker Components') {
+        stage('Push to Docker Hub') {
             steps {
                 script {
-                    // Remove Docker images and containers
-                    sh 'docker stop $(docker ps -a -q)'  
-                    sh  'docker rm $(docker ps -a -q)' 
-                    sh  'docker rmi $(docker images -q)'
-                    sh 'docker system prune -af'
+                    
+                    // Login to Docker Hub
+                    sh 'echo $DOCKER_CREDENTIALS_PSW | docker login --username $DOCKER_CREDENTIALS_USR --password-stdin'
+                    // Push the image
+                    sh 'docker push $DOCKER_IMAGE'
                 }
             }
         }
+
+///        stage('Clear Docker Components') {
+///            steps {
+///                script {
+///                    // Remove Docker images and containers
+///                    sh 'docker stop $(docker ps -a -q)'  
+///                    sh  'docker rm $(docker ps -a -q)' 
+///                    sh  'docker rmi $(docker images -q)'
+///                    sh 'docker system prune -af'
+///                }
+///            }
+///        }
 
 
         stage('Deploy') {
